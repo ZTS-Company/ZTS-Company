@@ -1,0 +1,73 @@
+:root {
+  /* Colores extraídos de los estilos y elementos de la página en Figma */
+  --color-black: #000000;
+  --color-white: #FEFEFE;
+  --color-primary: #D1272F;
+  --color-primary-alt: #D91E32;
+  --color-text: #FEFEFE;
+  --color-text-muted: #AAAAAA;
+  --color-text-subtle: #96969F;
+  --color-text-dark: #646464;
+  --color-surface: #141414;
+  --color-surface-raised: #171717;
+  --color-surface-soft: #F1F1F1;
+  --color-border: #303030;
+  --color-border-light: #DDDDDD;
+  --color-accent-soft: #FBEAEC;
+  --color-dashboard-border: #37373C;
+  --color-dashboard-muted: #45454E;
+  --color-dashboard-surface: #111113;
+  --color-dashboard-raised: #323238;
+  --color-dashboard-text: #A4A4AD;
+  --color-dashboard-border-alt: #36363E;
+  --color-dashboard-light: #F5F5F7;
+
+  --font-body: 'Raleway', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 21px;
+  --font-size-2xl: 25px;
+  --font-size-3xl: 42px;
+  --font-size-4xl: 48px;
+  --font-size-hero: 68px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+  --line-height-tight: 1.04;
+  --line-height-heading: 1.1;
+  --line-height-relaxed: 1.5;
+  --line-height-body: 1.6;
+  --line-height-hero-copy: 1.65;
+  --line-height-card-title: 1.25;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-pill: 100px;
+  --shadow-dashboard: 0 14px 28px 0 rgb(0 0 0 / 45%);
+  --shadow-dashboard-strong: 0 10px 18px 0 rgb(0 0 0 / 55%);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 10px;
+  --space-4: 12px;
+  --space-5: 14px;
+  --space-6: 16px;
+  --space-8: 20px;
+  --space-10: 24px;
+  --space-12: 28px;
+  --space-16: 32px;
+  --space-24: 48px;
+  --space-32: 64px;
+  --space-section-y: 88px;
+  --space-container-x: 80px;
+  --container-width: 1440px;
+  --nav-height: 100px;
+}

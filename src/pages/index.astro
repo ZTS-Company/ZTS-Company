@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from '../sections/Navigation.astro';
+import HeroContent from '../sections/HeroContent.astro';
+import WorkingPrinciples from '../sections/WorkingPrinciples.astro';
 ---
 
 <BaseLayout>
-    <main class="container" style="padding-block: 4rem;">
-        <h1>ZTS Company</h1>
-    </main>
+    <Navigation />
+    <main><HeroContent /><WorkingPrinciples /></main>
 </BaseLayout>

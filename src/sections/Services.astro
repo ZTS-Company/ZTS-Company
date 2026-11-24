@@ -1,0 +1,55 @@
+---
+import { services } from '../data/home';
+
+const icons: Record<string, string> = {
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>',
+  bag: '<path d="M5 8h14l1 12H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3m-6 3a3 3 0 0 0 6 0"/>',
+  phone: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/>',
+  blocks: '<rect x="3" y="3" width="9" height="9" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/><path d="M15 3h6v7h-6zM3 15h7v6H3z"/>',
+  rocket: '<path d="M14 4c3-2 6-2 6-2s0 3-2 6l-7 7-4-4 7-7Z"/><path d="m7 11-4 1-1 5 5-1m4 0-1 4 5 1 1-5M7 7l-3 1-2 4 5-1"/>',
+  nodes: '<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M7 11v3a2 2 0 0 0 2 2h4"/>',
+};
+---
+<section class="services" id="servicios" aria-labelledby="services-title">
+  <div class="services__inner">
+    <header class="services__header">
+      <div>
+        <p class="services__eyebrow"><span></span>01 / LO QUE PODEMOS CONSTRUIR</p>
+        <h2 id="services-title">TECNOLOGÍA CON<br />UN PROPÓSITO: EL SUYO.</h2>
+      </div>
+      <p class="services__intro">Desde su primera página web hasta el sistema que conecta su empresa. Elegimos la solución según su necesidad.</p>
+    </header>
+    <div class="services__grid">
+      {services.map((service) => (
+        <article class="service-card">
+          <div class="service-card__top">
+            <svg class="service-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[service.icon]} />
+            <span class="service-card__arrow" aria-hidden="true">↗</span>
+          </div>
+          <h3>{service.title}</h3>
+          <p class="service-card__description">{service.description}</p>
+          <p class="service-card__tags">{service.tags}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .services{background:var(--color-white);color:var(--color-black);padding:96px var(--space-container-x) 88px}
+  .services__inner{max-width:1280px;margin-inline:auto}
+  .services__header{display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:64px;margin-bottom:46px}
+  .services__eyebrow{display:flex;align-items:center;gap:10px;color:#666;font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:26px}
+  .services__eyebrow span{width:7px;height:7px;background:var(--color-primary);display:inline-block}
+  .services h2{font-size:clamp(32px,3.3vw,48px);font-weight:900;letter-spacing:-.045em;line-height:1.08}
+  .services__intro{font-size:17px;line-height:1.6;color:#707070;max-width:500px;padding-bottom:2px}
+  .services__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:32px}
+  .service-card{border-top:1px solid var(--color-border-light);padding:28px 0 28px;min-height:230px}
+  .service-card__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}
+  .service-card__icon{width:26px;height:26px;color:#f21d2b}
+  .service-card__arrow{font-size:21px;line-height:1;color:#666}
+  .service-card h3{font-size:23px;line-height:1.25;font-weight:800;letter-spacing:-.025em;margin-bottom:16px}
+  .service-card__description{color:#707070;font-size:15px;line-height:1.6;margin-bottom:16px}
+  .service-card__tags{font-size:11px;color:#555;font-weight:500}
+  @media(max-width:900px){.services{padding-block:72px}.services__header{grid-template-columns:1fr;gap:22px}.services__grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}}
+  @media(max-width:560px){.services{padding-block:56px}.services__grid{grid-template-columns:1fr}.service-card{min-height:0;padding-block:24px}.services h2 br{display:none}}
+</style>

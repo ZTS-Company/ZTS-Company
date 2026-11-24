@@ -20,3 +20,9 @@ export const services = [
   { icon: 'rocket', title: 'Desarrollo de MVP', description: 'Pruebe su idea con una primera versión enfocada en lo esencial y un alcance bien definido.', tags: 'Prototipos · Productos iniciales' },
   { icon: 'nodes', title: 'Integraciones y dashboards', description: 'Conecte sus herramientas y consulte la información que necesita para tomar decisiones.', tags: 'Automatización · Paneles de control' },
 ] as const;
+
+export const solutions = [
+  { audience: 'PARA PYMES', icon: 'store', title: 'Su negocio merece\nuna buena presencia.', description: 'Si sus clientes aún no le encuentran en línea o sus ventas dependen de mensajes sueltos.', offer: 'Sitio web + tienda en línea' },
+  { audience: 'PARA EMPRENDEDORES Y STARTUPS', icon: 'bulb', title: 'De una buena idea\na una primera versión.', description: 'Si necesita validar un producto sin desarrollar todo de una vez ni perder de vista su presupuesto.', offer: 'MVP + asesoría técnica' },
+  { audience: 'PARA EMPRESAS EN CRECIMIENTO', icon: 'chart', title: 'Menos hojas de cálculo.\nMás control.', description: 'Si su equipo repite tareas o necesita unir información que hoy vive en herramientas separadas.', offer: 'Software + integraciones' },
+] as const;

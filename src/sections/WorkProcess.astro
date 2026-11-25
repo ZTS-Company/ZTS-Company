@@ -1,0 +1,48 @@
+---
+import { workSteps } from '../data/home';
+---
+
+<section class="process" id="como-trabajamos" aria-labelledby="process-title">
+  <div class="process__inner">
+    <header class="process__header">
+      <div>
+        <p class="process__eyebrow"><span></span>04 / UN PROCESO CLARO</p>
+        <h2 id="process-title">SIN CAJAS NEGRAS.<br />PASO A PASO, CON USTED.</h2>
+      </div>
+      <p class="process__intro">Usted conoce su negocio. Nosotros traducimos esa experiencia en una solución útil y un plan comprensible.</p>
+    </header>
+    <ol class="process__steps">
+      {workSteps.map((step, index) => (
+        <li class="process-step">
+          <div class="process-step__top">
+            <span class="process-step__number">{step.number}</span>
+            {index < workSteps.length - 1 && <span class="process-step__arrow" aria-hidden="true">→</span>}
+          </div>
+          <h3>{step.title}</h3>
+          <p class="process-step__description">{step.description}</p>
+          <p class="process-step__outcome">{step.outcome}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process{background:#000;color:#fefefe;padding:96px var(--space-container-x) 88px}
+  .process__inner{max-width:1280px;margin-inline:auto}
+  .process__header{display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:64px;margin-bottom:56px}
+  .process__eyebrow{display:flex;align-items:center;gap:10px;color:#aaa;font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:26px}
+  .process__eyebrow span{width:7px;height:7px;background:var(--color-primary);display:inline-block}
+  .process h2{font-size:clamp(32px,3.3vw,48px);font-weight:900;letter-spacing:-.045em;line-height:1.08}
+  .process__intro{font-size:17px;line-height:1.6;color:#aaa;max-width:460px;padding-bottom:2px}
+  .process__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;list-style:none;padding:0;margin:0}
+  .process-step{border-top:1px solid #303030;padding-top:26px;min-width:0}
+  .process-step__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .process-step__number{font:800 42px/1 var(--font-display);letter-spacing:-.04em;color:var(--color-primary)}
+  .process-step__arrow{font-size:21px;color:#aaa}
+  .process-step h3{font:700 24px/1.25 var(--font-body);margin-bottom:18px}
+  .process-step__description{font-size:15px;line-height:1.6;color:#aaa;min-height:48px}
+  .process-step__outcome{font-size:12px;font-weight:600;color:#fff;margin-top:20px}
+  @media(max-width:900px){.process{padding-block:72px}.process__header{grid-template-columns:1fr;gap:22px}.process__steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}}
+  @media(max-width:560px){.process{padding-block:56px}.process__steps{grid-template-columns:1fr;gap:28px}.process-step__description{min-height:0}}
+</style>

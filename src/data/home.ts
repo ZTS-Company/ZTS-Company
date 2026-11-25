@@ -41,3 +41,10 @@ export const examples = [
     tags: ['SISTEMA INTERNO', 'INTEGRACIONES', 'DASHBOARD'],
   },
 ] as const;
+
+export const workSteps = [
+  { number: '01', title: 'Escuchamos', description: 'Nos cuenta su idea, sus procesos y lo que hoy le está frenando.', outcome: 'Necesidades y prioridades' },
+  { number: '02', title: 'Definimos', description: 'Acordamos alcance, etapas y una inversión acorde con el proyecto.', outcome: 'Propuesta y plan de trabajo' },
+  { number: '03', title: 'Construimos', description: 'Diseñamos y desarrollamos con revisiones y avances que usted puede ver.', outcome: 'Entregas y validación' },
+  { number: '04', title: 'Acompañamos', description: 'Ponemos la solución en marcha y definimos cómo darle continuidad.', outcome: 'Lanzamiento y soporte' },
+] as const;

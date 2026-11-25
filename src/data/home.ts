@@ -48,3 +48,26 @@ export const workSteps = [
   { number: '03', title: 'Construimos', description: 'Diseñamos y desarrollamos con revisiones y avances que usted puede ver.', outcome: 'Entregas y validación' },
   { number: '04', title: 'Acompañamos', description: 'Ponemos la solución en marcha y definimos cómo darle continuidad.', outcome: 'Lanzamiento y soporte' },
 ] as const;
+
+export const frequentlyAskedQuestions = [
+  {
+    question: '¿Necesito saber de tecnología para empezar?',
+    description: 'No. Basta con que nos cuente qué quiere lograr o qué proceso necesita mejorar. Le ayudamos a definir una solución y le explicamos cada decisión con claridad.',
+  },
+  {
+    question: '¿Cuánto cuesta desarrollar mi proyecto?',
+    description: 'Depende del alcance, las funcionalidades y las integraciones que necesite. Primero entendemos su objetivo y después le presentamos una propuesta clara, con etapas e inversión estimada.',
+  },
+  {
+    question: '¿Cuánto tiempo toma una solución?',
+    description: 'El plazo depende del tipo de solución y su alcance. Definimos un plan de trabajo por etapas y le compartimos avances para que sepa qué esperar durante el proceso.',
+  },
+  {
+    question: '¿Pueden mejorar o conectar un sistema existente?',
+    description: 'Sí. Revisamos las herramientas y procesos que ya utiliza para identificar cómo mejorarlos o conectarlos con una solución nueva.',
+  },
+  {
+    question: '¿Qué sucede después del lanzamiento?',
+    description: 'Podemos acordar soporte y mantenimiento para atender ajustes, mantener la solución funcionando y acompañar su evolución.',
+  },
+] as const;

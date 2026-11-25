@@ -1,18 +1,391 @@
 ---
-import Button from '../components/ui/Button.astro';
+import Button from "../components/ui/Button.astro";
 ---
+
 <section class="hero" id="inicio" aria-labelledby="hero-title">
-  <div class="copy">
-    <p class="eyebrow"><i></i>Desarrollo web y software a la medida</p>
-    <h1 id="hero-title">SU PRÓXIMO<br />PASO, HECHO<br /><em>SOFTWARE.</em></h1>
-    <p class="tagline">Desarrollo a tu medida, éxito a tu alcance.</p>
-    <p class="description">Transformamos sus ideas y procesos manuales en sitios web, aplicaciones y sistemas que le ayudan a avanzar.</p>
-    <div class="actions"><Button href="#contacto">Cuéntenos su proyecto</Button><Button href="#soluciones" variant="text">Explore las soluciones ↓</Button></div>
-  </div>
-  <div class="visual" aria-label="Espacio reservado para el modelo 3D de la constelación">
-    <p>En este apartado va el modelo 3D de la constelacion</p>
-  </div>
+    <div class="copy">
+        <p class="eyebrow">
+            <i></i>Desarrollo web y software a la medida
+        </p>
+        <h1 id="hero-title">
+            SU PRÓXIMO
+            <br />
+            PASO, HECHO
+            <br />
+            <em>SOFTWARE.</em>
+        </h1>
+        <p class="tagline">Desarrollo a tu medida, éxito a tu alcance.</p>
+        <p class="description">
+            Transformamos sus ideas y procesos manuales en sitios web,
+            aplicaciones y sistemas que le ayudan a avanzar.
+        </p>
+        <div class="actions">
+            <Button href="#contacto">Cuéntenos su proyecto</Button>
+            <Button href="#soluciones" variant="text">
+                Explore las soluciones ↓
+            </Button>
+        </div>
+    </div>
+    <div
+        class="visual"
+        data-constellation
+        role="img"
+        aria-label="Animación 3D de una constelación que asciende hasta una estrella brillante en el cenit"
+    >
+        <canvas class="visual__canvas" aria-hidden="true"></canvas>
+    </div>
 </section>
+<script>
+    import * as THREE from "three";
+
+    const mount = document.querySelector<HTMLElement>("[data-constellation]");
+    const canvas = mount?.querySelector("canvas");
+
+    if (mount && canvas) {
+        try {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
+            camera.position.set(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas,
+                alpha: true,
+                antialias: true,
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            renderer.setClearColor(0x000000, 0);
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            const down = new THREE.Vector3(0, -0.42, -1).normalize();
+            const up = new THREE.Vector3(0, 0.47, -1).normalize();
+            const lookDirection = new THREE.Vector3();
+            const lookTarget = new THREE.Vector3();
+
+            let seed = 42;
+            const random = () => {
+                seed = (seed * 16807) % 2147483647;
+                return (seed - 1) / 2147483646;
+            };
+
+            const starFields: THREE.Points[] = [];
+            const starLayers = [
+                { count: 1150, size: 0.028, color: 0xb9ccff, opacity: 0.62 },
+                { count: 320, size: 0.052, color: 0xdce7ff, opacity: 0.78 },
+                { count: 72, size: 0.085, color: 0xffe5c2, opacity: 0.9 },
+            ];
+
+            for (const layer of starLayers) {
+                const positions = new Float32Array(layer.count * 3);
+                for (let i = 0; i < layer.count; i += 1) {
+                    const z = -7 - random() * 21;
+                    positions[i * 3] = (random() - 0.5) * -z * 1.8;
+                    positions[i * 3 + 1] = (random() - 0.5) * -z * 1.35;
+                    positions[i * 3 + 2] = z;
+                }
+
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute(
+                    "position",
+                    new THREE.BufferAttribute(positions, 3),
+                );
+                const material = new THREE.PointsMaterial({
+                    color: layer.color,
+                    size: layer.size,
+                    transparent: true,
+                    opacity: layer.opacity,
+                    sizeAttenuation: true,
+                    depthWrite: false,
+                });
+                const field = new THREE.Points(geometry, material);
+                starFields.push(field);
+                scene.add(field);
+            }
+
+            const constellation = new THREE.Group();
+            const constellationPoints = [
+                [-5.8, -3.1, -12],
+                [-4.2, -1.9, -13],
+                [-2.6, -2.8, -12.5],
+                [-1.1, -0.6, -14],
+                [0.8, -1.5, -13],
+                [2.1, 0.4, -15],
+                [3.8, -0.4, -14],
+                [5.5, 1.5, -16],
+                [6.6, 0.1, -15],
+            ].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+            const constellationLine = new THREE.BufferGeometry().setFromPoints(
+                constellationPoints,
+            );
+            constellation.add(
+                new THREE.Line(
+                    constellationLine,
+                    new THREE.LineBasicMaterial({
+                        color: 0x8ca9e8,
+                        transparent: true,
+                        opacity: 0.42,
+                    }),
+                ),
+            );
+
+            const nodeGeometry = new THREE.BufferGeometry().setFromPoints(
+                constellationPoints,
+            );
+            const nodeMaterial = new THREE.PointsMaterial({
+                color: 0xdbe6ff,
+                size: 0.12,
+                transparent: true,
+                opacity: 0.95,
+                sizeAttenuation: true,
+            });
+            constellation.add(new THREE.Points(nodeGeometry, nodeMaterial));
+            scene.add(constellation);
+
+            const makeGlowTexture = () => {
+                const glowCanvas = document.createElement("canvas");
+                glowCanvas.width = 128;
+                glowCanvas.height = 128;
+                const context = glowCanvas.getContext("2d");
+                if (!context) return null;
+                const gradient = context.createRadialGradient(
+                    64,
+                    64,
+                    0,
+                    64,
+                    64,
+                    64,
+                );
+                gradient.addColorStop(0, "rgba(255,255,255,1)");
+                gradient.addColorStop(0.08, "rgba(255,244,214,0.95)");
+                gradient.addColorStop(0.24, "rgba(255,198,111,0.38)");
+                gradient.addColorStop(1, "rgba(255,174,80,0)");
+                context.fillStyle = gradient;
+                context.fillRect(0, 0, 128, 128);
+                const texture = new THREE.CanvasTexture(glowCanvas);
+                texture.colorSpace = THREE.SRGBColorSpace;
+                return texture;
+            };
+
+            const zenith = new THREE.Group();
+            zenith.position.set(0, 7.5, -16);
+            const core = new THREE.Mesh(
+                new THREE.SphereGeometry(0.13, 20, 20),
+                new THREE.MeshBasicMaterial({ color: 0xfff2cf }),
+            );
+            zenith.add(core);
+
+            const glowTexture = makeGlowTexture();
+            if (glowTexture) {
+                const glow = new THREE.Sprite(
+                    new THREE.SpriteMaterial({
+                        map: glowTexture,
+                        color: 0xffd39b,
+                        transparent: true,
+                        blending: THREE.AdditiveBlending,
+                        depthWrite: false,
+                    }),
+                );
+                glow.scale.set(5.4, 5.4, 1);
+                zenith.add(glow);
+            }
+
+            const flareMaterial = new THREE.LineBasicMaterial({
+                color: 0xffefc6,
+                transparent: true,
+                opacity: 0.8,
+            });
+            const flareGeometry = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(-0.75, 0, 0),
+                new THREE.Vector3(0.75, 0, 0),
+                new THREE.Vector3(0, -0.75, 0),
+                new THREE.Vector3(0, 0.75, 0),
+            ]);
+            const flare = new THREE.LineSegments(flareGeometry, flareMaterial);
+            zenith.add(flare);
+            scene.add(zenith);
+
+            const resize = () => {
+                const { width, height } = mount.getBoundingClientRect();
+                if (!width || !height) return;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height, false);
+            };
+            const observer = new ResizeObserver(resize);
+            observer.observe(mount);
+            resize();
+
+            const startedAt = performance.now();
+            const startDelay = 350;
+            const riseDuration = 5200;
+            const zenithPause = 2800;
+            const descentDuration = 5200;
+            const nadirPause = 2800;
+            const cycleDuration =
+                riseDuration + zenithPause + descentDuration + nadirPause;
+
+            const animate = (now: number) => {
+                const elapsed = now - startedAt - startDelay;
+                const phase = elapsed < 0 ? 0 : elapsed % cycleDuration;
+                let progress = 0;
+
+                if (reducedMotion) {
+                    progress = 1;
+                } else if (phase < riseDuration) {
+                    progress = phase / riseDuration;
+                } else if (phase < riseDuration + zenithPause) {
+                    progress = 1;
+                } else if (
+                    phase <
+                    riseDuration + zenithPause + descentDuration
+                ) {
+                    progress =
+                        1 -
+                        (phase - riseDuration - zenithPause) / descentDuration;
+                }
+
+                const eased = progress * progress * (3 - 2 * progress);
+                lookDirection.copy(down).lerp(up, eased).normalize();
+                lookTarget.copy(lookDirection).multiplyScalar(12);
+                camera.lookAt(lookTarget);
+
+                const shimmer = reducedMotion
+                    ? 1
+                    : 1 + Math.sin(now * 0.0018) * 0.06;
+                zenith.scale.setScalar(shimmer);
+                const drift = reducedMotion
+                    ? 0
+                    : Math.sin(now * 0.00012) * 0.025;
+                for (const field of starFields) {
+                    field.rotation.y = drift;
+                }
+                renderer.render(scene, camera);
+                if (!reducedMotion) requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
+        } catch (error) {
+            console.warn(
+                "The Three.js constellation could not be initialized.",
+                error,
+            );
+        }
+    }
+</script>
 <style>
-.hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:48px;padding:88px var(--space-container-x) 64px;overflow:hidden}.copy{display:flex;flex-direction:column;align-items:flex-start;gap:24px}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--color-text-muted);font-size:12px;font-weight:700;letter-spacing:.125em;text-transform:uppercase}.eyebrow i{width:7px;height:7px;background:var(--color-primary)}h1{font-size:clamp(42px,5vw,68px);font-weight:800;letter-spacing:-.038em;line-height:1.04}h1 em{color:var(--color-primary);font-style:normal}.tagline{font-size:21px;font-weight:600}.description{max-width:530px;color:var(--color-text-muted);font-size:18px;line-height:1.65}.actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.visual{min-height:492px;position:relative;display:grid;place-items:center;text-align:center;color:var(--color-text-muted);font-size:18px;line-height:1.5}@media(max-width:900px){.hero{grid-template-columns:1fr;padding:64px 24px}.visual{min-height:410px}}
+    .hero {
+        position: relative;
+        isolation: isolate;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: stretch;
+        gap: 48px;
+        padding: 88px var(--space-container-x) 64px;
+        overflow: hidden;
+    }
+    .copy {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 24px;
+    }
+    .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--color-text-muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.125em;
+        text-transform: uppercase;
+    }
+    .eyebrow i {
+        width: 7px;
+        height: 7px;
+        background: var(--color-primary);
+    }
+    h1 {
+        font-size: clamp(42px, 5vw, 68px);
+        font-weight: 800;
+        letter-spacing: -0.038em;
+        line-height: 1.04;
+    }
+    h1 em {
+        color: var(--color-primary);
+        font-style: normal;
+    }
+    .tagline {
+        font-size: 21px;
+        font-weight: 600;
+    }
+    .description {
+        max-width: 530px;
+        color: var(--color-text-muted);
+        font-size: 18px;
+        line-height: 1.65;
+    }
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+    .visual {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        overflow: hidden;
+        background:
+            radial-gradient(
+                ellipse at 72% 42%,
+                rgba(33, 53, 100, 0.34),
+                transparent 58%
+            ),
+            linear-gradient(
+                155deg,
+                rgba(10, 15, 31, 0.82),
+                rgba(4, 7, 16, 0.96)
+            );
+    }
+    .visual::after {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.68) 0%,
+            rgba(0, 0, 0, 0.42) 34%,
+            transparent 76%
+        );
+        content: "";
+        pointer-events: none;
+    }
+    .visual__canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+        .hero {
+            grid-template-columns: 1fr;
+            padding: 64px 24px;
+        }
+    }
+    @media (max-width: 520px) {
+        .visual::after {
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.46) 0%,
+                rgba(0, 0, 0, 0.34) 55%,
+                rgba(0, 0, 0, 0.62) 100%
+            );
+        }
+    }
 </style>

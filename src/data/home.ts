@@ -26,3 +26,18 @@ export const solutions = [
   { audience: 'PARA EMPRENDEDORES Y STARTUPS', icon: 'bulb', title: 'De una buena idea\na una primera versión.', description: 'Si necesita validar un producto sin desarrollar todo de una vez ni perder de vista su presupuesto.', offer: 'MVP + asesoría técnica' },
   { audience: 'PARA EMPRESAS EN CRECIMIENTO', icon: 'chart', title: 'Menos hojas de cálculo.\nMás control.', description: 'Si su equipo repite tareas o necesita unir información que hoy vive en herramientas separadas.', offer: 'Software + integraciones' },
 ] as const;
+
+export const examples = [
+  {
+    number: '01',
+    title: 'De catálogo a tienda en línea.',
+    description: 'Un comercio puede reunir sus productos, recibir pedidos y ofrecer a sus clientes una compra más sencilla.',
+    tags: ['E-COMMERCE', 'CATÁLOGO', 'PEDIDOS'],
+  },
+  {
+    number: '02',
+    title: 'De archivos sueltos a control.',
+    description: 'Una empresa puede centralizar pedidos, responsables y estados para dejar de buscar información entre archivos.',
+    tags: ['SISTEMA INTERNO', 'INTEGRACIONES', 'DASHBOARD'],
+  },
+] as const;

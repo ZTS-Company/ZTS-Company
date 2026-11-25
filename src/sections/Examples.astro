@@ -1,0 +1,93 @@
+---
+import { examples } from '../data/home';
+---
+
+<section class="examples" id="ejemplos" aria-labelledby="examples-title">
+  <div class="examples__inner">
+    <header class="examples__header">
+      <div>
+        <p class="examples__eyebrow"><span></span>03 / DE LA NECESIDAD A LA SOLUCIÓN</p>
+        <h2 id="examples-title">ASÍ PODRÍA VERSE<br />SU SIGUIENTE PASO.</h2>
+      </div>
+      <div class="examples__note"><strong>CONCEPTOS ILUSTRATIVOS</strong><p>Ejemplos de lo que podemos construir. No son proyectos de clientes ni resultados reales.</p></div>
+    </header>
+
+    <div class="examples__grid">
+      {examples.map((example, index) => (
+        <article class="example">
+          {index === 0 ? (
+            <div class="mockup shop-mockup" aria-label="Concepto ilustrativo de catálogo de tienda en línea">
+              <div class="shop-window">
+                <div class="shop-nav"><b>OBJETO /</b><span>Colección　 Nosotros　 <b>Bolsa (0)</b></span></div>
+                <div class="shop-heading"><h3>DISEÑO PARA<br />SU DÍA A DÍA.</h3><span>Ver colección ↗</span></div>
+                <div class="product-grid">
+                  <div><i></i><b>Libreta esencial</b></div><div><i></i><b>Agenda semanal</b></div><div><i></i><b>Set de notas</b></div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div class="mockup control-mockup" aria-label="Concepto ilustrativo de panel de control de pedidos">
+              <div class="control-window">
+                <div class="control-nav"><b>CONTROL /</b><span>Operación　 Equipo　 Reportes</span></div>
+                <div class="control-title"><h3>Pedidos en curso</h3><button type="button">+ Nuevo pedido</button></div>
+                <div class="orders-table">
+                  <div class="table-head"><span>PEDIDO</span><span>RESPONSABLE</span><span>ESTADO</span></div>
+                  <div><b>Pedido de ejemplo A</b><span>Administración</span><em>En preparación</em></div>
+                  <div><b>Pedido de ejemplo B</b><span>Operaciones</span><em>Por revisar</em></div>
+                  <div><b>Pedido de ejemplo C</b><span>Almacén</span><em>Listo</em></div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div class="example__title"><h3>{example.title}</h3><span aria-hidden="true">↗</span></div>
+          <p class="example__description">{example.description}</p>
+          <ul class="example__tags" aria-label="Tecnologías y alcances relacionados">
+            {example.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .examples{background:#fefefe;color:#000;padding:96px var(--space-container-x) 88px}
+  .examples__inner{max-width:1280px;margin-inline:auto}
+  .examples__header{display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:64px;margin-bottom:46px}
+  .examples__eyebrow{display:flex;align-items:center;gap:10px;color:#666;font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:26px}
+  .examples__eyebrow span{width:7px;height:7px;background:var(--color-primary);display:inline-block}
+  .examples h2{font-size:clamp(32px,3.3vw,48px);font-weight:900;letter-spacing:-.045em;line-height:1.08}
+  .examples__note{max-width:460px;color:#707070;font-size:15px;line-height:1.6;padding-bottom:2px}
+  .examples__note strong{display:block;color:#ed1c2e;font-size:11px;margin-bottom:8px}
+  .examples__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+  .mockup{height:300px;padding:28px 30px 0;display:flex;align-items:stretch;overflow:hidden}
+  .shop-mockup{background:#eee}
+  .control-mockup{background:#171717}
+  .shop-window,.control-window{background:#fff;color:#000;border-radius:9px 9px 0 0;width:100%;padding:22px 24px 0;overflow:hidden}
+  .shop-nav,.control-nav{display:flex;justify-content:space-between;align-items:center;font-size:9px}
+  .shop-nav b,.control-nav b{font-size:16px;font-weight:900}
+  .shop-heading{display:flex;justify-content:space-between;align-items:end;margin:20px 0 18px}
+  .shop-heading h3{font:900 30px/1.05 var(--font-display);letter-spacing:-.04em}
+  .shop-heading span{font-size:9px}
+  .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .product-grid div{min-width:0;font-size:9px}
+  .product-grid i{height:90px;display:block;background:#f0f0f0;margin-bottom:10px;position:relative}
+  .product-grid div:nth-child(2) i{background:#f9e9eb}
+  .product-grid i:after{content:'';position:absolute;width:48px;height:64px;left:50%;top:50%;transform:translate(-50%,-50%);background:#171717;border-radius:2px}
+  .product-grid div:nth-child(2) i:after{background:#d1272f}
+  .control-title{display:flex;justify-content:space-between;align-items:center;margin:20px 0 16px}
+  .control-title h3{font:700 23px var(--font-body)}
+  .control-title button{border:0;border-radius:3px;background:#d1272f;color:white;padding:7px 10px;font-size:9px}
+  .orders-table{font-size:9px}
+  .orders-table>div{display:grid;grid-template-columns:1.2fr .9fr 1.2fr;gap:8px;align-items:center;min-height:41px;border-bottom:1px solid #ddd}
+  .orders-table .table-head{min-height:26px;color:#888;font-size:8px}
+  .orders-table b{font-weight:600}.orders-table span{color:#888}.orders-table em{font-style:normal;color:#ed2634}
+  .example__title{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+  .example__title h3{font-size:27px;font-weight:700;letter-spacing:-.025em}
+  .example__title span{color:#ed1c2e;font-size:23px}
+  .example__description{color:#707070;font-size:15px;line-height:1.65;margin-top:22px}
+  .example__tags{display:flex;gap:14px;list-style:none;padding:0;margin:22px 0 0;color:#777;font-size:11px}
+  .example__tags li+li:before{content:'/';padding-right:14px;color:#555}
+  @media(max-width:850px){.examples{padding-block:72px}.examples__header{grid-template-columns:1fr;gap:24px}.examples__grid{gap:24px}.mockup{height:270px;padding:22px 20px 0}.shop-heading h3{font-size:24px}}
+  @media(max-width:650px){.examples{padding-block:56px}.examples__grid{grid-template-columns:1fr;gap:40px}.mockup{height:280px}.example__title h3{font-size:23px}}
+</style>

@@ -4,7 +4,7 @@ import Button from '../components/ui/Button.astro';
 ---
 
 <header class="navigation">
-  <a class="brand" href="#inicio" aria-label="ZTS Company, inicio"><span class="brand-mark">Z</span><span><strong>ZTS</strong> Company</span></a>
+  <a class="brand" href="#inicio" aria-label="ZTS Company, inicio"><img src="/zts-logo.svg" alt="" width="50" height="50" /><span><strong>ZTS</strong> Company</span></a>
   <nav aria-label="Navegación principal">
     {navigationLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     <Button href="#contacto">Hablemos de su proyecto</Button>
@@ -14,7 +14,7 @@ import Button from '../components/ui/Button.astro';
 <style>
   .navigation { min-height:var(--nav-height); padding:0 var(--space-container-x); display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--color-border); }
   .brand { display:flex; align-items:center; gap:12px; font-size:27px; }
-  .brand-mark { display:grid; place-items:center; width:50px; height:50px; background:var(--color-primary); font-family:var(--font-display); font-weight:800; }
+  .brand img { width:50px; height:50px; object-fit:contain; }
   nav { display:flex; align-items:center; gap:32px; }
   nav > a { font-size:14px; }
   @media(max-width:900px) { .navigation { padding-inline:24px; } nav { gap:12px; } nav > a { display:none; } }

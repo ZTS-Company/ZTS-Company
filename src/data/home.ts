@@ -71,3 +71,10 @@ export const frequentlyAskedQuestions = [
     description: 'Podemos acordar soporte y mantenimiento para atender ajustes, mantener la solución funcionando y acompañar su evolución.',
   },
 ] as const;
+
+export const ongoingSupport = {
+  label: '05 / UN ALIADO, NO SOLO UN PROVEEDOR',
+  title: 'EL LANZAMIENTO\nNO ES EL FINAL\nDEL CAMINO.',
+  description: 'Su herramienta necesita seguir siendo útil. Acordamos el soporte y mantenimiento para acompañarle también después de publicar.',
+  topics: ['Mantenimiento', 'Soporte', 'Evolución'],
+} as const;

@@ -73,8 +73,13 @@ export const frequentlyAskedQuestions = [
 ] as const;
 
 export const ongoingSupport = {
-  label: '05 / UN ALIADO, NO SOLO UN PROVEEDOR',
   title: 'EL LANZAMIENTO\nNO ES EL FINAL\nDEL CAMINO.',
   description: 'Su herramienta necesita seguir siendo útil. Acordamos el soporte y mantenimiento para acompañarle también después de publicar.',
   topics: ['Mantenimiento', 'Soporte', 'Evolución'],
+} as const;
+
+export const companyIdentity = {
+  description: 'Zenith Technologic Solutions Company. Un aliado cercano para hacer más accesible la tecnología y convertirla en una herramienta de trabajo real.',
+  statement: 'LA TECNOLOGÍA DEBE\nTRABAJAR PARA LAS PERSONAS.\nNO AL REVÉS.',
+  values: ['Accesibilidad', 'Empatía', 'Soluciones que evolucionan'],
 } as const;

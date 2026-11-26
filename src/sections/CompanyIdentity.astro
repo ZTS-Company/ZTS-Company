@@ -1,0 +1,110 @@
+---
+import { companyIdentity } from "../data/home";
+---
+
+<section class="identity" id="nosotros" aria-labelledby="identity-title">
+    <div class="identity__inner">
+        <div class="identity__about">
+            <p class="identity__eyebrow">
+                <span></span>07 / SOMOS ZTS COMPANY
+            </p>
+            <p class="identity__description">{companyIdentity.description}</p>
+        </div>
+        <div class="identity__statement">
+            <h2 id="identity-title">
+                LA TECNOLOGÍA DEBE
+                <br />
+                TRABAJAR PARA LAS PERSONAS.
+                <br />
+                <span>NO AL REVÉS.</span>
+            </h2>
+            <ul class="identity__values">
+                {companyIdentity.values.map((value) => (
+                    <li>{value}</li>
+                ))}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+    .identity {
+        background: #000;
+        color: #fefefe;
+        padding: 88px var(--space-container-x);
+        border-bottom: 1px solid #303030;
+    }
+    .identity__inner {
+        max-width: 1280px;
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: 340px minmax(0, 1fr);
+        gap: 100px;
+        align-items: start;
+    }
+    .identity__eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        margin-bottom: 24px;
+    }
+    .identity__eyebrow span {
+        width: 7px;
+        height: 7px;
+        background: var(--color-primary);
+        display: inline-block;
+    }
+    .identity__description {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #aaa;
+    }
+    .identity__statement h2 {
+        font-size: clamp(32px, 3vw, 42px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.2;
+    }
+    .identity__statement h2 span {
+        color: var(--color-primary);
+    }
+    .identity__values {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        list-style: none;
+        padding: 0;
+        margin: 24px 0 0;
+        color: #aaa;
+        font-size: 13px;
+    }
+    .identity__values li + li:before {
+        content: "/";
+        margin-right: 12px;
+        color: #fefefe;
+    }
+    @media (max-width: 900px) {
+        .identity {
+            padding-block: 72px;
+        }
+        .identity__inner {
+            grid-template-columns: 1fr;
+            gap: 36px;
+        }
+    }
+    @media (max-width: 560px) {
+        .identity {
+            padding-block: 56px;
+        }
+        .identity__statement h2 br {
+            display: none;
+        }
+        .identity__statement h2 {
+            font-size: 32px;
+        }
+    }
+</style>

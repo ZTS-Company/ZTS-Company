@@ -1,0 +1,92 @@
+---
+import { contactSection } from '../data/home';
+---
+
+<section class="contact" id="contacto" aria-labelledby="contact-title">
+  <div class="contact__inner">
+    <div class="contact__intro">
+      <p class="contact__eyebrow"><span></span>08 / EMPECEMOS POR UNA CONVERSACIÓN</p>
+      <h2 id="contact-title">SU IDEA<br />MERECE UN<br />BUEN PUNTO<br />DE PARTIDA.</h2>
+      <p class="contact__description">{contactSection.description}</p>
+      <div class="contact__next">
+        <h3>¿Qué sigue después?</h3>
+        <ol>{contactSection.nextSteps.map((step) => <li>{step}</li>)}</ol>
+      </div>
+    </div>
+
+    <form class="contact-form" name="project-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" aria-describedby="form-note" novalidate>
+      <input type="hidden" name="form-name" value="project-inquiry" />
+      <p class="contact-form__honeypot" aria-hidden="true"><label>No llenar: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="contact-form__row">
+        <label><span class="contact-form__label">Nombre <b aria-hidden="true">*</b></span><input name="name" autocomplete="name" placeholder="Su nombre" required /></label>
+        <label><span class="contact-form__label">Correo electrónico <b aria-hidden="true">*</b></span><input type="email" name="email" autocomplete="email" placeholder="nombre@empresa.com" required /></label>
+      </div>
+      <label>Empresa o proyecto<input name="company" autocomplete="organization" placeholder="¿Cómo se llama su negocio? (opcional)" /></label>
+      <label><span class="contact-form__label">¿Qué necesita? <b aria-hidden="true">*</b></span>
+        <select name="solution" required>
+          <option value="" selected disabled>Seleccione una solución</option>
+          {contactSection.solutions.map((solution) => <option value={solution}>{solution}</option>)}
+        </select>
+      </label>
+      <div class="contact-form__row">
+        <label>Presupuesto estimado
+          <select name="budget"><option value="" selected disabled>Por definir</option>{contactSection.budgets.slice(1).map((budget) => <option value={budget}>{budget}</option>)}</select>
+        </label>
+        <label>Fecha deseada
+          <select name="timeline"><option value="" selected disabled>Sin fecha definida</option>{contactSection.dates.slice(1).map((date) => <option value={date}>{date}</option>)}</select>
+        </label>
+      </div>
+      <label><span class="contact-form__label">Cuéntenos sobre su proyecto <b aria-hidden="true">*</b></span><textarea name="message" placeholder="¿Qué le gustaría lograr? ¿Qué proceso necesita mejorar?" required></textarea></label>
+      <p class="contact-form__note" id="form-note">* Campos obligatorios. Usaremos sus datos para responder a su consulta.</p>
+      <label class="contact-form__consent"><input type="checkbox" name="consent" required /><span>Autorizo que ZTS Company me contacte sobre este proyecto.</span></label>
+      <button type="submit">Enviar consulta de proyecto <span aria-hidden="true">↗</span></button>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      window.alert('No se puede hacer la consulta del proyecto porque faltan campos obligatorios por llenar.');
+      form.querySelector<HTMLElement>(':invalid')?.focus();
+      event.preventDefault();
+      return;
+    }
+  });
+</script>
+
+<style>
+  .contact{background:#000;color:#fefefe;padding:88px var(--space-container-x)}
+  .contact__inner{max-width:1280px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1fr);gap:100px;align-items:start}
+  .contact__eyebrow{display:flex;align-items:center;gap:10px;color:#aaa;font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:28px}
+  .contact__eyebrow span{width:7px;height:7px;background:var(--color-primary)}
+  .contact h2{font-size:clamp(42px,4vw,54px);font-weight:900;letter-spacing:-.045em;line-height:1.1}
+  .contact__description{font-size:18px;line-height:1.6;color:#aaa;margin-top:28px;max-width:500px}
+  .contact__next{border-top:1px solid #333;margin-top:30px;padding-top:20px}
+  .contact__next h3{font-size:14px;margin-bottom:10px}
+  .contact__next ol{list-style:none;padding:0;margin:0;display:grid;gap:8px;counter-reset:next}
+  .contact__next li{counter-increment:next;display:flex;align-items:center;gap:14px;font-size:14px;color:#aaa}
+  .contact__next li:before{content:'0' counter(next);color:#ed1c2e;font-size:11px;font-weight:700}
+  .contact-form{display:grid;gap:22px}
+  .contact-form__honeypot{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .contact-form__row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .contact-form label{display:grid;gap:9px;font-size:13px;font-weight:600}
+  .contact-form__label{display:block}
+  .contact-form__label b{color:#ed1c2e;font-weight:700}
+  .contact-form input:not([type=checkbox]),.contact-form select,.contact-form textarea{width:100%;min-height:52px;border:1px solid #373737;border-radius:4px;background:#141414;color:#fefefe;padding:0 15px;font:400 14px var(--font-body)}
+  .contact-form input::placeholder,.contact-form textarea::placeholder,.contact-form select:invalid{color:#999}
+  .contact-form select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+  .contact-form textarea{padding:15px;min-height:110px;resize:vertical}
+  .contact-form__note,.contact-form__setup{font-size:12px;color:#999;line-height:1.5}
+  .contact-form .contact-form__consent{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:400;color:#aaa}
+  .contact-form__consent input{appearance:none;width:18px;height:18px;border:1px solid #aaa;border-radius:2px;margin:0;flex:none}
+  .contact-form__consent input:checked{background:var(--color-primary);border-color:var(--color-primary);box-shadow:inset 0 0 0 4px #000}
+  .contact-form button{min-height:54px;width:max-content;min-width:288px;padding:0 24px;border:0;border-radius:4px;background:var(--color-primary);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:28px;font-size:14px;font-weight:700}
+  .contact-form button span{font-size:20px}
+  @media(max-width:900px){.contact{padding-block:72px}.contact__inner{grid-template-columns:1fr;gap:48px}.contact h2 br{display:none}}
+  @media(max-width:560px){.contact{padding-block:56px}.contact-form__row{grid-template-columns:1fr;gap:22px}.contact h2{font-size:40px}.contact-form button{width:100%;min-width:0}}
+</style>

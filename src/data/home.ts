@@ -83,3 +83,12 @@ export const companyIdentity = {
   statement: 'LA TECNOLOGÍA DEBE\nTRABAJAR PARA LAS PERSONAS.\nNO AL REVÉS.',
   values: ['Accesibilidad', 'Empatía', 'Soluciones que evolucionan'],
 } as const;
+
+export const contactSection = {
+  title: 'SU IDEA\nMERECE UN\nBUEN PUNTO\nDE PARTIDA.',
+  description: 'Cuéntenos qué quiere construir o qué necesita mejorar. No hace falta un documento técnico: su contexto es el mejor comienzo.',
+  nextSteps: ['Revisamos su necesidad.', 'Conversamos para aclarar el alcance.', 'Le proponemos los siguientes pasos.'],
+  solutions: ['Sitio web', 'Tienda en línea', 'Aplicación web o móvil', 'Software a la medida', 'MVP', 'Integraciones y dashboards', 'Otro'],
+  budgets: ['Por definir', 'Menos de $25,000 MXN', '$25,000–$75,000 MXN', '$75,000–$150,000 MXN', 'Más de $150,000 MXN'],
+  dates: ['Sin fecha definida', 'Lo antes posible', 'En 1–3 meses', 'En 3–6 meses', 'Más adelante'],
+} as const;

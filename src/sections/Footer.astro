@@ -1,0 +1,43 @@
+---
+import { footerNavigation } from '../data/home';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__main">
+      <a class="footer__brand" href="#inicio" aria-label="ZTS Company, volver al inicio"><strong>ZTS</strong> <span>Company</span></a>
+      <p class="footer__tagline">Desarrollo a tu medida, éxito a tu alcance.</p>
+    </div>
+    <nav class="footer__nav" aria-label="Navegación del pie de página">
+      {footerNavigation.map((group) => (
+        <div class="footer__group">
+          <h2>{group.title}</h2>
+          <ul>{group.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+        </div>
+      ))}
+    </nav>
+    <div class="footer__legal">
+      <p>Zenith Technologic Solutions Company</p>
+      <p>© {year} ZTS Company. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer{background:#000;color:#fefefe;padding:56px var(--space-container-x) 32px;border-top:1px solid #303030}
+  .footer__inner{max-width:1280px;margin-inline:auto}
+  .footer__main{display:flex;flex-direction:column;gap:8px}
+  .footer__brand{width:max-content;font-size:52px;line-height:1.1;letter-spacing:-.02em}
+  .footer__brand strong{font-weight:900}
+  .footer__brand span{font-weight:400}
+  .footer__tagline{font-size:16px;color:#aaa}
+  .footer__nav{display:flex;gap:64px;float:right;margin-top:-96px}
+  .footer__group h2{font:700 10px/1.4 var(--font-body);letter-spacing:.1em;color:#aaa;margin-bottom:14px}
+  .footer__group ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .footer__group a{font-size:13px;color:#eee;transition:color .2s}
+  .footer__group a:hover{color:var(--color-primary)}
+  .footer__legal{clear:both;display:flex;justify-content:space-between;gap:24px;border-top:1px solid #303030;margin-top:56px;padding-top:22px;color:#888;font-size:11px}
+  @media(max-width:700px){.footer{padding-block:44px 26px}.footer__nav{float:none;margin:38px 0 0;gap:40px}.footer__legal{margin-top:38px;flex-direction:column;gap:8px}.footer__brand{font-size:42px}}
+  @media(max-width:420px){.footer__nav{gap:24px}.footer__group a{font-size:12px}}
+</style>

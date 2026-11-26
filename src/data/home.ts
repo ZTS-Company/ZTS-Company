@@ -92,3 +92,22 @@ export const contactSection = {
   budgets: ['Por definir', 'Menos de $25,000 MXN', '$25,000–$75,000 MXN', '$75,000–$150,000 MXN', 'Más de $150,000 MXN'],
   dates: ['Sin fecha definida', 'Lo antes posible', 'En 1–3 meses', 'En 3–6 meses', 'Más adelante'],
 } as const;
+
+export const footerNavigation = [
+  {
+    title: 'EXPLORAR',
+    links: [
+      { label: 'Servicios', href: '#servicios' },
+      { label: 'Soluciones', href: '#soluciones' },
+      { label: 'Cómo trabajamos', href: '#como-trabajamos' },
+    ],
+  },
+  {
+    title: 'CONOCERNOS',
+    links: [
+      { label: 'Nosotros', href: '#nosotros' },
+      { label: 'Preguntas frecuentes', href: '#preguntas-frecuentes' },
+      { label: 'Consultar un proyecto ↗', href: '#contacto' },
+    ],
+  },
+] as const;

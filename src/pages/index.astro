@@ -11,11 +11,12 @@ import Faq from "../sections/Faq.astro";
 import OngoingSupport from "../sections/OngoingSupport.astro";
 import CompanyIdentity from "../sections/CompanyIdentity.astro";
 import Contact from "../sections/Contact.astro";
+import Footer from "../sections/Footer.astro";
 ---
 
 <BaseLayout>
     <Navigation />
-    <main>
+    <main id="inicio">
         <HeroContent />
         <WorkingPrinciples />
         <Services />
@@ -27,4 +28,5 @@ import Contact from "../sections/Contact.astro";
         <CompanyIdentity />
         <Contact />
     </main>
+    <Footer />
 </BaseLayout>

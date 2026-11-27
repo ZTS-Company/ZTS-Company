@@ -40,21 +40,45 @@ import { contactSection } from '../data/home';
       <p class="contact-form__note" id="form-note">* Campos obligatorios. Usaremos sus datos para responder a su consulta.</p>
       <label class="contact-form__consent"><input type="checkbox" name="consent" required /><span>Autorizo que ZTS Company me contacte sobre este proyecto.</span></label>
       <button type="submit">Enviar consulta de proyecto <span aria-hidden="true">↗</span></button>
+      <p class="contact-form__setup" data-form-status role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
 
 <script>
   const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const status = form?.querySelector<HTMLElement>('[data-form-status]');
+  const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-  form?.addEventListener('submit', (event) => {
+  form?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     if (!form.checkValidity()) {
       window.alert('No se puede hacer la consulta del proyecto porque faltan campos obligatorios por llenar.');
       form.querySelector<HTMLElement>(':invalid')?.focus();
-      event.preventDefault();
       return;
+    }
+
+    const body = new URLSearchParams();
+    new FormData(form).forEach((value, key) => body.append(key, String(value)));
+
+    if (submitButton) submitButton.disabled = true;
+    if (status) status.textContent = 'Enviando su consulta…';
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      form.reset();
+      if (status) status.textContent = '¡Gracias! Recibimos su consulta y le responderemos pronto.';
+    } catch {
+      if (status) status.textContent = 'No pudimos enviar su consulta. Por favor, inténtelo de nuevo en unos minutos.';
+    } finally {
+      if (submitButton) submitButton.disabled = false;
     }
   });
 </script>
